@@ -21,7 +21,7 @@ class AppViewModel : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     private var currentDessertPrice by mutableStateOf(_uiState.value.desserts[_uiState.value.currentDessertIndex].price)
-    private var currentDessertImageId by mutableStateOf(_uiState.value.desserts[_uiState.value.currentDessertIndex].imageId)
+    var currentDessertImageId by mutableStateOf(_uiState.value.desserts[_uiState.value.currentDessertIndex].imageId)
 
     private fun determineDessertToShow(): Dessert {
         val desserts = _uiState.value.desserts
@@ -30,10 +30,6 @@ class AppViewModel : ViewModel() {
             if (_uiState.value.dessertsSold >= dessert.startProductionAmount) {
                 dessertToShow = dessert
             } else {
-                // The list of desserts is sorted by startProductionAmount. As you sell more desserts,
-                // you'll start producing more expensive desserts as determined by startProductionAmount
-                // We know to break as soon as we see a dessert who's "startProductionAmount" is greater
-                // than the amount sold.
                 break
             }
         }
